@@ -26,7 +26,9 @@
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": [
                             "src/styles.scss",
-                            "node_modules/bootstrap/dist/css/bootstrap.css"
+                            "node_modules/bootstrap/dist/css/bootstrap.css",
+                            "src/assets/scss/black-dashboard.scss",
+                            "src/assets/css/nucleo-icons.css"
                         ],
                         "scripts": []
                     },
