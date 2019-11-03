@@ -9,19 +9,19 @@ declare interface SidebarItems {
 
 export const SIDEBAR_ELEMENTS: SidebarItems[] = [
     {
-        path: '',
+        path: '/homepage',
         title: 'Homepage',
         icon: 'icon-bank',
         class: ''
     },
     {
-        path: '',
+        path: '/faq',
         title: 'FAQ',
         icon: 'icon-bulb-63',
         class: ''
     },
     {
-        path: '',
+        path: '/feedback',
         title: 'Feedback',
         icon: 'icon-heart-2',
         class: ''

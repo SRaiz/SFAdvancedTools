@@ -4,13 +4,11 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-
-
 @NgModule({
     declarations: [
         FooterComponent,
         SidebarComponent,
-        NavbarComponent
+        NavbarComponent,
     ],
     imports: [
         CommonModule
