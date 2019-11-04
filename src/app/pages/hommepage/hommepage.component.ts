@@ -16,7 +16,7 @@ export class HommepageComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        const storage = localStorage;
+        const storage = sessionStorage;
 
         if (storage.length === 0 && String(window.location.href).includes('access_token')) {
             storage.idParam = decodeURIComponent(decodeURI(this.getUrlParameters('id')));
