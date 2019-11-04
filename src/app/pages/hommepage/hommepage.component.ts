@@ -41,7 +41,7 @@ export class HommepageComponent implements OnInit {
             urlPrefix = 'https://test.salesforce.com';
         }
 
-        localStorage.clear();
+        sessionStorage.clear();
         let redirectURL = urlPrefix + '/services/oauth2/authorize?response_type=token';
         redirectURL += '&client_id=' + connectionParameters.consumer_key + '&redirect_uri=' + connectionParameters.redirect_uri;
         window.location.href = redirectURL;
