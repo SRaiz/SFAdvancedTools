@@ -24,6 +24,7 @@ export class HommepageComponent implements OnInit {
             storage.accessToken = decodeURI(this.getUrlParameters('access_token'));
             storage.instanceUrl = decodeURIComponent(decodeURI(this.getUrlParameters('instance_url')));
             storage.tokenType = decodeURI(this.getUrlParameters('access_token'));
+            window.history.pushState(null, null, String(window.location.href).split('#')[0]);
             this.isConnected = true;
         } else if (storage.length > 0) {
             this.isConnected = true;
