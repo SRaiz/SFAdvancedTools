@@ -9,10 +9,20 @@
                     to profiles in Salesforce.
                 </div>
                 <div class="card-footer">
-                    <button class=" btn btn-fill btn-danger" type="submit" style="margin-right: 10px;">
-                        Connect To Production
-                    </button>
-                    <button class=" btn btn-fill btn-danger" type="submit">Connect To Sandbox</button>
+                    <div *ngIf="!isConnected; else connected">
+                        <button class=" btn btn-fill btn-danger" type="submit" style="margin-right: 10px;"
+                        (click)="connectToSFOrg($event)">
+                            Connect To Production
+                        </button>
+                        <button class=" btn btn-fill btn-danger" type="submit" (click)="connectToSFOrg($event)">
+                            Connect To Sandbox
+                        </button>
+                    </div>
+                    <ng-template #connected>
+                        <span class=" badge badge-danger" style="font-size: 0.85rem;">
+                            Great! You are connected to Salesforce
+                        </span>
+                    </ng-template>
                 </div>
             </div>
         </div>
