@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SfcalloutService } from 'src/app/sfcallout.service';
 
 const connectionParameters = {
     consumer_key: '3MVG9ZL0ppGP5UrDbwR9u.kaobGbLL5fjB6xTU3jZGjykodQtE7tkzLXl8p7ZK_iAzVsg2bbaLy4Rfuc8Z1xT',
@@ -13,20 +14,29 @@ const connectionParameters = {
 export class HommepageComponent implements OnInit {
     isConnected = false;
 
-    constructor() { }
+    // -- We create dependency of sfcalloutservice in the class constructor --//
+    constructor( private sfCalloutService: SfcalloutService ) { }
 
     ngOnInit() {
         const storage = sessionStorage;
 
         if (storage.length === 0 && String(window.location.href).includes('access_token')) {
+
             storage.idParam = decodeURIComponent(decodeURI(this.getUrlParameters('id')));
             storage.userId = storage.idParam.split('/').slice(-1)[0];
             storage.accessToken = decodeURI(this.getUrlParameters('access_token'));
             storage.instanceUrl = decodeURIComponent(decodeURI(this.getUrlParameters('instance_url')));
-            storage.tokenType = decodeURI(this.getUrlParameters('access_token'));
+            storage.tokenType = decodeURI(this.getUrlParameters('token_type'));
             window.history.pushState(null, null, String(window.location.href).split('#')[0]);
             this.isConnected = true;
+
+            // -- Fetch the logged in user data and update the markup --//
+            const queryFields = ['Id', 'Name', 'FirstName', 'Username', 'FullPhotoUrl'];
+            const qString = this.fetchLoggedInUserData('User', queryFields);
+            this.sfCalloutService.getRequestToSf(qString);
+
         } else if (storage.length > 0) {
+
             this.isConnected = true;
         }
     }
@@ -60,5 +70,12 @@ export class HommepageComponent implements OnInit {
             }
         });
         return urlParamValue;
+    }
+
+    fetchLoggedInUserData( objectName: string, queryFields: string[] ): string {
+
+        let queryString = this.sfCalloutService.createQuery(objectName, queryFields);
+        queryString += ' WHERE Id=\'' + sessionStorage.getItem('userId') + '\'' ;
+        return queryString;
     }
 }
