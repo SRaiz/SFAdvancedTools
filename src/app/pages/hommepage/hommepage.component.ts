@@ -14,16 +14,17 @@ const connectionParameters = {
 })
 export class HommepageComponent implements OnInit {
     isConnected = false;
+    showLoader = false;
 
     // -- We create dependency of sfcalloutservice in the class constructor --//
     constructor( private sfCalloutService: SfcalloutService ) { }
 
     ngOnInit() {
         const storage = sessionStorage;
-        let response: any;
 
         if (storage.length === 0 && String(window.location.href).includes('access_token')) {
 
+            this.showLoader = true;
             storage.idParam = decodeURIComponent(decodeURI(this.getUrlParameters('id')));
             storage.userId = storage.idParam.split('/').slice(-1)[0];
             storage.accessToken = decodeURI(this.getUrlParameters('access_token'));
@@ -86,6 +87,7 @@ export class HommepageComponent implements OnInit {
     updateUserInfo(response: any) {
         console.log(response.records);
         this.updateSidebarItems();
+        this.showLoader = false;
     }
 
     updateSidebarItems() {
