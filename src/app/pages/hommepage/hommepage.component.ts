@@ -33,7 +33,8 @@ export class HommepageComponent implements OnInit {
             // -- Fetch the logged in user data and update the markup --//
             const queryFields = ['Id', 'Name', 'FirstName', 'Username', 'FullPhotoUrl'];
             const qString = this.fetchLoggedInUserData('User', queryFields);
-            this.sfCalloutService.getRequestToSf(qString);
+            this.sfCalloutService.getRequestToSf(qString)
+                                 .subscribe(data => console.log(data));
 
         } else if (storage.length > 0) {
 
