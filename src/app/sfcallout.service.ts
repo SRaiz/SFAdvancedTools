@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -24,14 +24,13 @@ export class SfcalloutService {
 
         const requestUrl = sessionStorage.getItem('instanceUrl') + '/services/data/v46.0/query?q=' + queryString;
 
-        // -- Create the headers for get request --//
-        const headers = new HttpHeaders();
-        headers.set('Authorization', sessionStorage.getItem('tokenType') + ' ' + sessionStorage.getItem('accessToken'));
-        headers.set('Content-Type', 'application/json');
-
         // -- Send the get request to the URL. An observable is returned which is converted to IUserInfo interface --//
-        const observbl = this.http.get<IUserInfo>( requestUrl, {headers} )
-                                  .pipe( catchError(this.errorHandler));
+        const observbl = this.http.get<IUserInfo>( requestUrl, {
+                                    headers: {
+                                        Authorization: sessionStorage.getItem('tokenType') + ' ' + sessionStorage.getItem('accessToken'),
+                                        'Content-Type': 'application/json'
+                                    }
+                                }).pipe( catchError(this.errorHandler));
 
         return observbl;
     }
