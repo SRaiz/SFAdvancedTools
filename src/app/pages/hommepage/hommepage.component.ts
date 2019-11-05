@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SfcalloutService } from 'src/app/sfcallout.service';
+import { SIDEBAR_ELEMENTS } from './../../components/sidebar/sidebar.component';
 
 const connectionParameters = {
     consumer_key: '3MVG9ZL0ppGP5UrDbwR9u.kaobGbLL5fjB6xTU3jZGjykodQtE7tkzLXl8p7ZK_iAzVsg2bbaLy4Rfuc8Z1xT',
@@ -19,6 +20,7 @@ export class HommepageComponent implements OnInit {
 
     ngOnInit() {
         const storage = sessionStorage;
+        let response: any;
 
         if (storage.length === 0 && String(window.location.href).includes('access_token')) {
 
@@ -33,8 +35,9 @@ export class HommepageComponent implements OnInit {
             // -- Fetch the logged in user data and update the markup --//
             const queryFields = ['Id', 'Name', 'FirstName', 'Username', 'FullPhotoUrl'];
             const qString = this.fetchLoggedInUserData('User', queryFields);
+
             this.sfCalloutService.getRequestToSf(qString)
-                                 .subscribe(data => console.log(data));
+                                .subscribe(data => this.updateUserInfo(data));
 
         } else if (storage.length > 0) {
 
@@ -78,5 +81,18 @@ export class HommepageComponent implements OnInit {
         let queryString = this.sfCalloutService.createQuery(objectName, queryFields);
         queryString += ' WHERE Id=\'' + sessionStorage.getItem('userId') + '\'' ;
         return queryString;
+    }
+
+    updateUserInfo(response: any) {
+        console.log(response.records);
+        this.updateSidebarItems();
+    }
+
+    updateSidebarItems() {
+        SIDEBAR_ELEMENTS.map(data => {
+            if ( !data.display ) {
+                data.display = true;
+            }
+        });
     }
 }

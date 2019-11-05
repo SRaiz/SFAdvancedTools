@@ -5,26 +5,44 @@ declare interface SidebarItems {
     title: string;
     icon: string;
     class: string;
+    display: boolean;
 }
 
-export const SIDEBAR_ELEMENTS: SidebarItems[] = [
+export let SIDEBAR_ELEMENTS: SidebarItems[] = [
     {
         path: '/homepage',
         title: 'Homepage',
         icon: 'icon-bank',
-        class: ''
+        class: '',
+        display: true
     },
     {
         path: '/faq',
         title: 'FAQ',
         icon: 'icon-bulb-63',
-        class: ''
+        class: '',
+        display: true
     },
     {
         path: '/feedback',
         title: 'Feedback',
         icon: 'icon-heart-2',
-        class: ''
+        class: '',
+        display: true
+    },
+    {
+        path: '/apexpermissions',
+        title: 'Apex Permissions',
+        icon: 'icon-spaceship',
+        class: '',
+        display: false
+    },
+    {
+        path: '/vfpermissions',
+        title: 'VF Permissions',
+        icon: 'icon-notes',
+        class: '',
+        display: false
     }
 ];
 

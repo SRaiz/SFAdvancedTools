@@ -17,7 +17,7 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
         <li *ngFor="let item of sidebarItems" class="{{ item.class }} nav-item">
-            <a class="logo-normal">
+            <a class="logo-normal" *ngIf="item.display">
                 <i class="tim-icons {{ item.icon }}"></i>
                 <p style="font-size: 0.700rem;">{{ item.title }}</p>
             </a>

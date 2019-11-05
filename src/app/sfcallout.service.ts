@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { IUserInfo } from './ISfService';
 
 @Injectable({
     providedIn: 'root'
@@ -20,18 +19,17 @@ export class SfcalloutService {
         return queryString;
     }
 
-    getRequestToSf(queryString: string): Observable<IUserInfo> {
+    getRequestToSf(queryString: string) {
 
         const requestUrl = sessionStorage.getItem('instanceUrl') + '/services/data/v46.0/query?q=' + queryString;
 
         // -- Send the get request to the URL. An observable is returned which is converted to IUserInfo interface --//
-        const observbl = this.http.get<IUserInfo>( requestUrl, {
+        const observbl = this.http.get( requestUrl, {
                                     headers: {
                                         Authorization: sessionStorage.getItem('tokenType') + ' ' + sessionStorage.getItem('accessToken'),
                                         'Content-Type': 'application/json'
                                     }
                                 }).pipe( catchError(this.errorHandler));
-
         return observbl;
     }
 
